@@ -25,6 +25,7 @@ export default function App() {
 
         {/* Admin */}
         <Route path="/admin" element={<AdminLayout />}>
+          <Route index element={<AdminDashboard />} />
           <Route path="dashboard" element={<AdminDashboard />} />
           <Route path="about" element={<AboutPage />} />
         </Route>
