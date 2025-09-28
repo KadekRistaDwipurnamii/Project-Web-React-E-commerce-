@@ -36,6 +36,10 @@ export default function Dashboard() {
               <p className="text-blue-600 font-bold">
                 Rp {p.price.toLocaleString("id-ID")}
               </p>
+
+              {/* Tambahan Rating dan Stok */}
+              <p className="text-sm text-yellow-600">⭐ {p.rating}</p>
+              <p className="text-sm text-gray-600">Stok: {p.stock}</p>
             </div>
           ))}
         </div>
