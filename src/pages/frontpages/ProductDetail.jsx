@@ -57,6 +57,7 @@ export default function ProductDetail() {
       <div>
         <h2 className="text-2xl font-bold">{product.name}</h2>
         <p className="text-gray-500">{product.category_name}</p>
+        <p className="text-yellow-600">⭐ {product.rating}</p>   {/* Tambahan Rating */}
         <p className="text-blue-600 font-bold text-xl">
           Rp {product.price.toLocaleString("id-ID")}
         </p>
