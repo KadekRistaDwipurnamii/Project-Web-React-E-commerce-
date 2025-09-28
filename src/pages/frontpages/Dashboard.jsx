@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useOutletContext } from "react-router-dom";
 
 export default function Dashboard() {
   const [products, setProducts] = useState([]);
+
+  // Ambil context dari MainLayout (search & category)
+  const { search, category } = useOutletContext();
 
   useEffect(() => {
     fetch("/products.json")
@@ -11,15 +14,27 @@ export default function Dashboard() {
       .catch((err) => console.error("Gagal load products:", err));
   }, []);
 
+  // 🔎 Filter produk sesuai kategori & pencarian
+  const filteredProducts = products.filter((p) => {
+    const matchCategory =
+      category === "Semua" || p.category.toLowerCase() === category.toLowerCase();
+    const matchSearch =
+      search === "" || p.name.toLowerCase().includes(search.toLowerCase());
+
+    return matchCategory && matchSearch;
+  });
+
   return (
     <div>
       <h2 className="text-2xl font-bold mb-4">Daftar Produk</h2>
 
       {products.length === 0 ? (
         <p>Loading produk...</p>
+      ) : filteredProducts.length === 0 ? (
+        <p className="text-gray-500">Tidak ada produk yang sesuai.</p>
       ) : (
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {products.map((p) => (
+          {filteredProducts.map((p) => (
             <div key={p.id} className="border p-4 rounded shadow">
               <img
                 src={p.image}
